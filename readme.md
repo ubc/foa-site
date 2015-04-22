@@ -22,18 +22,23 @@ Adds an additional tab (FOA Options) on top of the theme options, with the follo
 *** Select Main Colour which would affect: Arts Logo, Unit/Website Bar Background, Heading Texts, slider caption section, new ticker bar, links, and some lines on the home page.
 
 ** Logo Options:
+
 *** This section allows you to enable/disable and select the logo image to be added to the site menu
 
 ** Apply Now:
+
 *** An optional button to be appended to the main navigation menu that will link to the specified application page
 
 ** Slider Logo Position:
+
 *** This option allows admin to insert the unit logo to the slider, as well as deciding the caption location on the slider
 
 ** News Ticker:
+
 *** This option allows admin to enable or disable a ticker feature on the website that displays the post title as a sliding feature.
 
 ** Events Carousel:
+
 *** This option allows admin to feature posts of an event categories to be available on the site homepage
 
 ** Social Row:
