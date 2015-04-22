@@ -16,7 +16,7 @@ FOA website is a plugin developed specifically for the Faculty of Arts and its d
 
 == Features ==
 
-* Adds an additional tab (FOA Options) on top of the theme options, with the following features:
+Adds an additional tab (FOA Options) on top of the theme options, with the following features:
 ** Colour Options:
 *** Select Main Colour which would affect: Arts Logo, Unit/Website Bar Background, Heading Texts, slider caption section, new ticker bar, links, and some lines on the home page.
 ** Logo Options:
