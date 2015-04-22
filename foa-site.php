@@ -280,7 +280,7 @@ Class UBC_FOA_Theme_Options {
                                 </li>
                       <?php } ?>
                 </ul>
-                <div class="half arts-apply-inputs"><?php UBC_Collab_Theme_Options::text('arts-slider-logo-url', 'URL'); ?></div>
+                <div class="half arts-logo-url-inputs"><?php UBC_Collab_Theme_Options::text('arts-slider-logo-url', 'URL'); ?></div>
             </div>
         
     <?php
@@ -919,7 +919,7 @@ Class UBC_FOA_Theme_Options {
          * Generates the html content and calls the appropriate function based on selection
          */
         function add_social_row_content(){
-            $html = '<div class="row-fluid entry-content">
+            $html = '<div class="row-fluid entry-content social-row">
                         <div class="span4 sr-col1">
                              <h3>'.UBC_Collab_Theme_Options::get('arts-social-column1-title').'</h3> 
                              <div class="sr-col1-content">'.UBC_FOA_Theme_Options::get_social_content(UBC_Collab_Theme_Options::get('arts-social-column1-type')).'</div> 
