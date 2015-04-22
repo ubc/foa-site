@@ -18,32 +18,55 @@ FOA website is a plugin developed specifically for the Faculty of Arts and its d
 
 Adds an additional tab (FOA Options) on top of the theme options, with the following features:
 ** Colour Options:
+
 *** Select Main Colour which would affect: Arts Logo, Unit/Website Bar Background, Heading Texts, slider caption section, new ticker bar, links, and some lines on the home page.
+
 ** Logo Options:
-*** This section allows you to enable/disable and select the logo image to be added to the site menu.
+*** This section allows you to enable/disable and select the logo image to be added to the site menu
+
 ** Apply Now:
 *** An optional button to be appended to the main navigation menu that will link to the specified application page
+
 ** Slider Logo Position:
 *** This option allows admin to insert the unit logo to the slider, as well as deciding the caption location on the slider
+
 ** News Ticker:
 *** This option allows admin to enable or disable a ticker feature on the website that displays the post title as a sliding feature.
+
 ** Events Carousel:
 *** This option allows admin to feature posts of an event categories to be available on the site homepage
+
 ** Social Row:
+
 *** This allows admin to define 3 social media sources to be fed automatically on the website
+
 **** Posts:
+
 ***** Enables admin to select a category to have a specified number of latest posts with that category to be fed into the section
+
 **** Twitter:
+
+
 ***** Allows user to embed a twitter feed by entering Twitter Widget ID, Twitter User, and Twitter Page URL
+
 **** Instagram:
+
 ***** Allows user to load a specified number of instagram items by entering the instagram User account
+
 **** Facebook:
+
 ***** Allows user to embed the Facebook page posts by entering the Facebook page URL
+
 **** Flickr:
+
 ***** Allows user to load a specified number of instagram posts by entering the Flickr User ID.
+
 **** RSS:
+
 ***** Fetches a specified number of RSS posts by entering the RSS URL
+
 **** Text:
+
 ***** Allows user to enter a static html or text content into this section
 
 == Installation ==
