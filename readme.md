@@ -83,9 +83,12 @@ Adds an additional tab (FOA Options) on top of the theme options, with the follo
 5. That’s it, you’re ready to go!
 
 == Version 2.0.1 ==
+
 Release date: June 7, 2015
 
 == Previous Versions ==
+
 Release date: March 30, 2015
+
 * Initial Release 
  
