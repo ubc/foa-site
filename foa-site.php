@@ -70,8 +70,8 @@ Class UBC_FOA_Theme_Options {
     	self::$add_script = true;
 		// register the spotlight functions
         if( !is_admin() ):
-        	wp_register_script( 'ubc-collab-arts', plugins_url('foa-site').'/js/foa-site.js', array( 'jquery' ), '0.1', true );
-        	wp_enqueue_style('ubc-collab-arts', plugins_url('foa-site').'/css/foa-site.css');
+        	//wp_register_script( 'ubc-collab-arts', plugins_url('foa-site').'/js/foa-site.js', array( 'jquery' ), '0.1', true );
+        	//wp_enqueue_style('ubc-collab-arts', plugins_url('foa-site').'/css/foa-site.css');
         endif;
 	
 	}   
@@ -1441,7 +1441,7 @@ Class UBC_FOA_Theme_Options {
      */        
         function wp_head(){ ?>
         <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/slick.css" >
-        <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/foa.css">
+        <link rel="stylesheet" href="/wordpress/wp-content/plugins/foa-site/css/foa.css">
         <style type="text/css" media="screen">
 
             .gradient-color{
@@ -1453,10 +1453,10 @@ Class UBC_FOA_Theme_Options {
             .hover-color{
                 color: <?php echo UBC_Collab_Theme_Options::get('arts-hover-colour')?>;
             }
-            a#artslogo, .main-bg, #qlinks a, #primary-secondary, .basic-sliding .carousel-caption, .news-ticker{
+            a#artslogo, .main-bg, #qlinks a, .basic-sliding .carousel-caption, .news-ticker{
                 background-color:<?php echo UBC_Collab_Theme_Options::get('arts-main-colour')?>;
             }
-            .gradient-bg, #primary-secondary{
+            .gradient-bg{
                 background-color:<?php echo UBC_Collab_Theme_Options::get('arts-gradient-colour')?>;
             }
             a{
@@ -1490,6 +1490,22 @@ Class UBC_FOA_Theme_Options {
             }
 
             @media (min-width: 1200px){
+                <?php
+                if(is_front_page()){ ?>
+                    .entry-content {
+                        width: 1170px;
+                        margin: 0 auto;
+                      }
+                      <?php
+                } else{
+                    ?>
+                    .full-width-container {
+                        width: 1170px;
+                        margin: 0 auto !important;
+                      }
+                    <?php
+                }
+                ?>
                 .basic-sliding .carousel-caption {
                     left: <?php echo UBC_Collab_Theme_Options::get('arts-slider-logo-position');?>;
                     background-image: url("<?php echo UBC_Collab_Theme_Options::get('arts-slider-logo-url');?>");
@@ -1513,7 +1529,12 @@ Class UBC_FOA_Theme_Options {
     function wp_footer(){
         ?>
         <script>
-            jQuery(function() {   jQuery("#news-ticker").vTicker();   jQuery(".responsive").slick({   dots: true,   infinite: false,   speed: 300,   slidesToShow: 4,   slidesToScroll: 4,   responsive: [     {       breakpoint: 1024,       settings: {         slidesToShow: 1,         slidesToScroll: 3,         infinite: true,         dots: true       }     },     {       breakpoint: 600,       settings: {         slidesToShow: 1,         slidesToScroll: 2       }     },     {       breakpoint: 480,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     }   ] }); });
+            jQuery(function() {   jQuery(".responsive").slick({   dots: true,   infinite: false,   speed: 300,   slidesToShow: 4,   slidesToScroll: 4,   responsive: [     {       breakpoint: 768,       settings: {         slidesToShow: 2,         slidesToScroll: 2,         infinite: true,         dots: true       }     },     {       breakpoint: 600,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     },     {       breakpoint: 480,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     }   ] }); });
+        </script>
+        <script>
+            jQuery(function() { 
+                jQuery("#news-ticker").vTicker();
+             });   
         </script>
         <script src="http://cdn.arts.ubc.ca/foa-cdn/js/ticker.js"></script>
         <script type="text/javascript" src="http://cdn.arts.ubc.ca/foa-cdn/js/slick.min.js"></script>
