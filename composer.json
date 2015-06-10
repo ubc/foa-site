@@ -1,0 +1,12 @@
+{
+    "name"       : "amirent/foa-site",
+    "description": "FOA website is a plugin developed specifically for the Faculty of Arts and its departments, sub-units, programs, as well as MPPGA (Master of Public Policy and Global Affairs.",
+    "homepage"   : "http://isit.arts.ubc.ca",
+    "type"       : "wordpress-plugin",
+    "license"    : "GPL-2.0+",
+    "require"    : {
+        "composer/installers": "~1.0",
+        "ubc/full-width-clf": "*",
+        "wp-hybrid-clf" : "*"
+    }
+}
