@@ -1441,7 +1441,7 @@ Class UBC_FOA_Theme_Options {
      */        
         function wp_head(){ ?>
         <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/slick.css" >
-        <link rel="stylesheet" href="/wordpress/wp-content/plugins/foa-site/css/foa.css">
+        <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/foa.css">
         <style type="text/css" media="screen">
 
             .gradient-color{
