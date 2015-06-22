@@ -1277,7 +1277,7 @@ Class UBC_FOA_Theme_Options {
                     $html .= '<li class="instagram-wrapper">'; 
                         $html .= '<a href="'. esc_url( $item['link'] ) .'" target="'. esc_attr( $target ) .'">'; 
                         $html .= '<span class="instagram-text">'.esc_attr( $item['description'] ).'</span>';
-                        $html .= '<img src="'. esc_url($item[$size]['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'"/>';
+                        $html .= '<img src="'. esc_url($item[$size]) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'"/>';
                         $html .= '</a>';
                     $html .= '</li>';
             }
@@ -1294,46 +1294,88 @@ Class UBC_FOA_Theme_Options {
          * @param type $slice
          * @return \WP_Error
          */
-	function scrape_instagram($username, $slice = 9) {
-		$username = strtolower($username);
-		if (false === ($instagram = get_transient('instagram-media-'.sanitize_title_with_dashes($username)))) {
-			$remote = wp_remote_get('http://instagram.com/'.trim($username));
-			if (is_wp_error($remote))
-	  			return new WP_Error('site_down', __('Unable to communicate with Instagram.', $this->wpiwdomain));
-  			if ( 200 != wp_remote_retrieve_response_code( $remote ) )
-  				return new WP_Error('invalid_response', __('Instagram did not return a 200.', $this->wpiwdomain));
-			$shards = explode('window._sharedData = ', $remote['body']);
-			$insta_json = explode(';</script>', $shards[1]);
-			$insta_array = json_decode($insta_json[0], TRUE);
-			if (!$insta_array)
-	  			return new WP_Error('bad_json', __('Instagram has returned invalid data.', $this->wpiwdomain));
-			$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
-			$instagram = array();
-			foreach ($images as $image) {
-				if ($image['user']['username'] == $username) {
-					$image['link']                          = preg_replace( "/^http:/i", "", $image['link'] );
-					$image['images']['thumbnail']           = preg_replace( "/^http:/i", "", $image['images']['thumbnail'] );
-					$image['images']['standard_resolution'] = preg_replace( "/^http:/i", "", $image['images']['standard_resolution'] );
-					$image['images']['low_resolution']      = preg_replace( "/^http:/i", "", $image['images']['low_resolution'] );
-					$instagram[] = array(
-						'description'   => $image['caption']['text'],
-						'link'          => $image['link'],
-						'time'          => $image['created_time'],
-						'comments'      => $image['comments']['count'],
-						'likes'         => $image['likes']['count'],
-						'thumbnail'     => $image['images']['thumbnail'],
-						'large'         => $image['images']['standard_resolution'],
-						'small'         => $image['images']['low_resolution'],
-						'type'          => $image['type']
-					);
-				}
+	function scrape_instagram( $username, $slice = 9 ) {
+		$username = strtolower( $username );
+		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
+			$remote = wp_remote_get( 'http://instagram.com/'.trim( $username ) );
+			if ( is_wp_error( $remote ) )
+				return 'Unable to communicate with Instagram.';
+			if ( 200 != wp_remote_retrieve_response_code( $remote ) )
+				return 'Instagram did not return a 200.';
+			$shards = explode( 'window._sharedData = ', $remote['body'] );
+			$insta_json = explode( ';</script>', $shards[1] );
+			$insta_array = json_decode( $insta_json[0], TRUE );
+			if ( !$insta_array )
+				return 'Instagram has returned invalid data.';
+			// old style
+			if ( isset( $insta_array['entry_data']['UserProfile'][0]['userMedia'] ) ) {
+				$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
+				$type = 'old';
+			// new style
+			} else if ( isset( $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'] ) ) {
+				$images = $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'];
+				$type = 'new';
+			} else {
+				return 'Instagram has returned invalid data.';
 			}
-			$instagram = base64_encode( serialize( $instagram ) );
-			set_transient('instagram-media-'.sanitize_title_with_dashes($username), $instagram, apply_filters('null_instagram_cache_time', HOUR_IN_SECONDS*2));
+			if ( !is_array( $images ) )
+				return 'Instagram has returned invalid data.';
+			$instagram = array();
+			switch ( $type ) {
+				case 'old':
+					foreach ( $images as $image ) {
+						if ( $image['user']['username'] == $username ) {
+							$image['link']						  = preg_replace( "/^http:/i", "", $image['link'] );
+							$image['images']['thumbnail']		   = preg_replace( "/^http:/i", "", $image['images']['thumbnail'] );
+							$image['images']['standard_resolution'] = preg_replace( "/^http:/i", "", $image['images']['standard_resolution'] );
+							$image['images']['low_resolution']	  = preg_replace( "/^http:/i", "", $image['images']['low_resolution'] );
+							$instagram[] = array(
+								$image['caption']['text'],
+								'link'		  	=> $image['link'],
+								'time'		  	=> $image['created_time'],
+								'comments'	  	=> $image['comments']['count'],
+								'likes'		 	=> $image['likes']['count'],
+								'thumbnail'	 	=> $image['images']['thumbnail'],
+								'large'		 	=> $image['images']['standard_resolution'],
+								'small'		 	=> $image['images']['low_resolution'],
+								'type'		  	=> $image['type']
+							);
+						}
+					}
+				break;
+				default:
+					foreach ( $images as $image ) {
+						$image['display_src'] = preg_replace( "/^http:/i", "", $image['display_src'] );
+						if ( $image['is_video']  == true ) {
+							$type = 'video';
+						} else {
+							$type = 'image';
+						}
+						$instagram[] = array(
+							'description'           => __( $image['caption'], 'wpiw' ),
+							'link'		  	=> '//instagram.com/p/' . $image['code'],
+							'time'		  	=> $image['date'],
+							'comments'	  	=> $image['comments']['count'],
+							'likes'		 	=> $image['likes']['count'],
+							'thumbnail'	 	=> $image['display_src'],
+							'type'		  	=> $type
+						);
+					} 
+				break;
+			}
+			// do not set an empty transient - should help catch private or empty accounts
+			if ( ! empty( $instagram ) ) {
+				$instagram = base64_encode( serialize( $instagram ) );
+				set_transient( 'instagram-media-new-'.sanitize_title_with_dashes( $username ), $instagram, apply_filters( 'null_instagram_cache_time', HOUR_IN_SECONDS*2 ) );
+			}
 		}
-		$instagram = unserialize( base64_decode( $instagram ) );
-		return array_slice($instagram, 0, $slice);
-	}    
+		if ( ! empty( $instagram ) ) {
+			$instagram = unserialize( base64_decode( $instagram ) );
+			return array_slice( $instagram, 0, $slice );
+		} else {
+			return 'Instagram did not return any images.';
+		}
+	}   
         
         /**
          * Calls the add_event_carousel_content if this feature is set to be enable
