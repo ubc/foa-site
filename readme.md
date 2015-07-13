@@ -82,12 +82,14 @@ Adds an additional tab (FOA Options) on top of the theme options, with the follo
 4. Make desired settings on Theme Options > FOA options
 5. That’s it, you’re ready to go!
 
-== Version 2.0.1 ==
+== Version 2.0.2 ==
 
-Release date: June 7, 2015
+Release date: July 13, 2015
+  Bug Fix
+  Javascript cleanup 
 
 == Previous Versions ==
-
+Release date: June 7, 2015: (V 2.0.1)Instagram code update
 Release date: March 30, 2015
 
 * Initial Release 
