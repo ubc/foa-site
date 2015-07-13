@@ -1416,7 +1416,7 @@ Class UBC_FOA_Theme_Options {
             while ( $news_ticker_query->have_posts() ){ 
                 $news_ticker_query->the_post(); 
                 $html .= '<div>';
-                    $html .='<span class="mpp-event-date-time">'.get_post_field('event_date_time').'</span>';
+                    $html .='<span class="mpp-event-date-time">'.get_post_field('event_date_time', get_the_ID()).'</span>';
                     $html .= '<div class="mpp-inner-event-box">';
                         $html .= '<span class="mpp-event-thumbnail">'.get_the_post_thumbnail().'</span>';
                         $html .= '<span class="mpp-event-title"><a href="'.get_permalink().'">'.get_the_title().'</a></span>';
@@ -1569,18 +1569,20 @@ Class UBC_FOA_Theme_Options {
     } 
     
     function wp_footer(){
-        ?>
-        <script>
-            jQuery(function() {   jQuery(".responsive").slick({   dots: true,   infinite: false,   speed: 300,   slidesToShow: 4,   slidesToScroll: 4,   responsive: [     {       breakpoint: 768,       settings: {         slidesToShow: 2,         slidesToScroll: 2,         infinite: true,         dots: true       }     },     {       breakpoint: 600,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     },     {       breakpoint: 480,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     }   ] }); });
-        </script>
-        <script>
-            jQuery(function() { 
-                jQuery("#news-ticker").vTicker();
-             });   
-        </script>
-        <script src="http://cdn.arts.ubc.ca/foa-cdn/js/ticker.js"></script>
-        <script type="text/javascript" src="http://cdn.arts.ubc.ca/foa-cdn/js/slick.min.js"></script>
-        <?php
+        if(is_front_page()){
+            ?>
+            <script>
+                jQuery(function() {   jQuery(".responsive").slick({   dots: true,   infinite: false,   speed: 300,   slidesToShow: 4,   slidesToScroll: 4,   responsive: [     {       breakpoint: 768,       settings: {         slidesToShow: 2,         slidesToScroll: 2,         infinite: true,         dots: true       }     },     {       breakpoint: 600,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     },     {       breakpoint: 480,       settings: {         slidesToShow: 1,         slidesToScroll: 1       }     }   ] }); });
+            </script>
+            <script>
+                jQuery(function() { 
+                    jQuery("#news-ticker").vTicker();
+                 });   
+            </script>
+            <script src="http://cdn.arts.ubc.ca/foa-cdn/js/ticker.js"></script>
+            <script type="text/javascript" src="http://cdn.arts.ubc.ca/foa-cdn/js/slick.min.js"></script>
+            <?php
+        }
     }
 }
 UBC_FOA_Theme_Options::init();
