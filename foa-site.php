@@ -1252,13 +1252,17 @@ Class UBC_FOA_Theme_Options {
          * @return string
          */
         function get_social_instagram($username, $limit = 10) {
-            $media_array = UBC_FOA_Theme_Options::scrape_instagram($username, $limit);
-            // Divide the array into two columns
-            $insta_items_col1 = array_slice($media_array, 0, $limit / 2);
-            $insta_items_col2 = array_slice($media_array, $limit / 2);
-            $html = '';
-            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col1);
-            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col2);
+	        $html = '';
+            try{
+	            $media_array = UBC_FOA_Theme_Options::scrape_instagram($username, $limit);
+	            // Divide the array into two columns
+	            $insta_items_col1 = array_slice($media_array, 0, $limit / 2);
+	            $insta_items_col2 = array_slice($media_array, $limit / 2);
+	            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col1);
+	            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col2);
+            }catch(Exception $e){
+                $html .= 'Caught exception: ' . $e->getMessage();
+            }
             
             return $html;
         }
@@ -1299,14 +1303,14 @@ Class UBC_FOA_Theme_Options {
 		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
 			$remote = wp_remote_get( 'http://instagram.com/'.trim( $username ) );
 			if ( is_wp_error( $remote ) )
-				return 'Unable to communicate with Instagram.';
+				throw new Exception('Unable to communicate with Instagram.');
 			if ( 200 != wp_remote_retrieve_response_code( $remote ) )
 				return 'Instagram did not return a 200.';
 			$shards = explode( 'window._sharedData = ', $remote['body'] );
 			$insta_json = explode( ';</script>', $shards[1] );
 			$insta_array = json_decode( $insta_json[0], TRUE );
 			if ( !$insta_array )
-				return 'Instagram has returned invalid data.';
+				throw new Exception('Instagram has returned invalid data.');
 			// old style
 			if ( isset( $insta_array['entry_data']['UserProfile'][0]['userMedia'] ) ) {
 				$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
@@ -1316,10 +1320,10 @@ Class UBC_FOA_Theme_Options {
 				$images = $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'];
 				$type = 'new';
 			} else {
-				return 'Instagram has returned invalid data.';
+				throw new Exception('Instagram has returned invalid data.');
 			}
 			if ( !is_array( $images ) )
-				return 'Instagram has returned invalid data.';
+				throw new Exception('Instagram has returned invalid data.');
 			$instagram = array();
 			switch ( $type ) {
 				case 'old':
@@ -1373,7 +1377,7 @@ Class UBC_FOA_Theme_Options {
 			$instagram = unserialize( base64_decode( $instagram ) );
 			return array_slice( $instagram, 0, $slice );
 		} else {
-			return 'Instagram did not return any images.';
+			throw new Exception('Instagram did not return any images.');
 		}
 	}   
         
