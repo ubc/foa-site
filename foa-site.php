@@ -1305,8 +1305,9 @@ Class UBC_FOA_Theme_Options {
 			if ( is_wp_error( $remote ) ) {
 				throw new Exception( 'Unable to communicate with Instagram.' );
 			}
-			if ( 200 !== wp_remote_retrieve_response_code( $remote ) ) {
-				throw new Exception( 'Instagram did not return a 200.' );
+			$response_code = wp_remote_retrieve_response_code( $remote );
+			if ( 200 !== $response_code ) {
+				throw new Exception( 'Instagram did not return a 200. Got response code:' . $response_code );
 			}
 			$shards = explode( 'window._sharedData = ', $remote['body'] );
 			$insta_json = explode( ';</script>', $shards[1] );
