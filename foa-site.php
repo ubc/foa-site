@@ -1301,7 +1301,7 @@ Class UBC_FOA_Theme_Options {
 	function scrape_instagram( $username, $slice = 9 ) {
 		$username = strtolower( $username );
 		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
-			$remote = wp_remote_get( 'https://instagram.com/' . trim( $username ) );
+			$remote = wp_remote_get( esc_url( 'https://instagram.com/' . trim( $username ) ) );
 			if ( is_wp_error( $remote ) ) {
 				throw new Exception( 'Unable to communicate with Instagram.' );
 			}
