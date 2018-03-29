@@ -1455,8 +1455,8 @@ Class UBC_FOA_Theme_Options {
      * @return void
      */        
         function wp_head(){ ?>
-        <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/slick.css" >
-        <link rel="stylesheet" href="http://cdn.arts.ubc.ca/foa-cdn/css/foa.css">
+        <link rel="stylesheet" href="//cdn.arts.ubc.ca/foa-cdn/css/slick.css" >
+        <link rel="stylesheet" href="//cdn.arts.ubc.ca/foa-cdn/css/foa.css">
         <style type="text/css" media="screen">
 
             .gradient-color{
@@ -1552,8 +1552,8 @@ Class UBC_FOA_Theme_Options {
                     jQuery("#news-ticker").vTicker();
                  });   
             </script>
-            <script src="https://cdn.arts.ubc.ca/foa-cdn/js/ticker.js"></script>
-            <script type="text/javascript" src="https://cdn.arts.ubc.ca/foa-cdn/js/slick.min.js"></script>
+            <script src="//cdn.arts.ubc.ca/foa-cdn/js/ticker.js"></script>
+            <script type="text/javascript" src="//cdn.arts.ubc.ca/foa-cdn/js/slick.min.js"></script>
             <?php
         }
     }

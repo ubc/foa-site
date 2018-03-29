@@ -7,6 +7,6 @@
     "require"    : {
         "composer/installers": "~1.0",
         "ubc/full-width-clf": "*",
-        "wp-hybrid-clf" : "*"
+        "ubc/wp-hybrid-clf" : "*"
     }
 }
