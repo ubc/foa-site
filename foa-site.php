@@ -1301,23 +1301,27 @@ Class UBC_FOA_Theme_Options {
 	function scrape_instagram( $username, $slice = 9 ) {
 		$username = strtolower( $username );
 		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
-			$remote = wp_remote_get( 'https://instagram.com/'.trim( $username ) );
-			if ( is_wp_error( $remote ) )
+			$remote = wp_remote_get( 'https://instagram.com/' . trim( $username ) );
+			if ( is_wp_error( $remote ) ) {
 				throw new Exception( 'Unable to communicate with Instagram.' );
-			if ( 200 != wp_remote_retrieve_response_code( $remote ) )
+			}
+			if ( 200 !== wp_remote_retrieve_response_code( $remote ) ) {
 				throw new Exception( 'Instagram did not return a 200.' );
+			}
 			$shards = explode( 'window._sharedData = ', $remote['body'] );
 			$insta_json = explode( ';</script>', $shards[1] );
 			$insta_array = json_decode( $insta_json[0], TRUE );
-			if ( !$insta_array )
+			if ( !$insta_array ) {
 				throw new Exception( 'Instagram has returned invalid data.' );
+			}
 			if ( isset( $insta_array['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges'] ) ) {
 				$images = $insta_array['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges'];
 			} else {
 				throw new Exception( 'Instagram has returned invalid data.' );
 			}
-			if ( !is_array( $images ) )
+			if ( !is_array( $images ) ) {
 				throw new Exception( 'Instagram has returned invalid data.' );
+			}
 			$instagram = array();
 			foreach ( $images as $image ) {
 				$image['display_src'] = preg_replace( '/^http:/i', '', $image['node']['display_url'] );
