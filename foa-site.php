@@ -363,8 +363,6 @@ Class UBC_FOA_Theme_Options {
                 </div>
                 <div id="sr1-posts" class="sr1-element"><label>Choose a category</label><br><?php UBC_Collab_Theme_Options::select_categories('arts-social-column1-post-category'); ?></div>
                 <div id="sr1-twitter" class="sr1-element"><?php UBC_Collab_Theme_Options::text('arts-social-column1-twitter-widget-id', 'Twitter Widget ID'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column1-twitter-user', 'Twitter User'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column1-twitter-url', 'Twitter Page URL'); ?></div>
-                <div id="sr1-instagram" class="sr1-element"><?php UBC_Collab_Theme_Options::text('arts-social-column1-instagram', 'Instagram User'); ?></div>
-                <div id="sr1-facebook" class="sr1-element"><?php UBC_Collab_Theme_Options::text('arts-social-column1-facebook', 'Facebook Page URL'); ?></div>
                 <div id="sr1-flickr" class="sr1-element"><?php UBC_Collab_Theme_Options::text('arts-social-column1-flickr', 'Flickr User ID'); ?><br><span><a href="http://idgettr.com/" target="_blank">Find Flickr Id</a></span></div>
                 <div id="sr1-rss" class="sr1-element"><?php UBC_Collab_Theme_Options::text('arts-social-column1-rss', 'RSS URL'); ?></div>
                 <div id="sr1-text" class="sr1-element"><?php UBC_Collab_Theme_Options::textarea('arts-social-column1-content', 'Content'); ?></div>
@@ -389,8 +387,6 @@ Class UBC_FOA_Theme_Options {
                 </div>
                 <div id="sr2-posts" class="sr2-element"><label>Choose a category</label><br><?php UBC_Collab_Theme_Options::select_categories('arts-social-column2-post-category'); ?></div>
                 <div id="sr2-twitter" class="sr2-element"><?php UBC_Collab_Theme_Options::text('arts-social-column2-twitter-widget-id', 'Twitter Widget ID'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column2-twitter-user', 'Twitter User'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column2-twitter-url', 'Twitter Page URL'); ?></div>
-                <div id="sr2-instagram" class="sr2-element"><?php UBC_Collab_Theme_Options::text('arts-social-column2-instagram', 'Instagram User'); ?></div>
-                <div id="sr2-facebook" class="sr2-element"><?php UBC_Collab_Theme_Options::text('arts-social-column2-facebook', 'Facebook Page URL'); ?></div>
                 <div id="sr2-flickr" class="sr2-element"><?php UBC_Collab_Theme_Options::text('arts-social-column2-flickr', 'Flickr User ID'); ?><br><span><a href="http://idgettr.com/" target="_blank">Find Flickr Id</a></span></div>
                 <div id="sr2-rss" class="sr2-element"><?php UBC_Collab_Theme_Options::text('arts-social-column2-rss', 'RSS URL'); ?></div>
                 <div id="sr2-text" class="sr2-element"><?php UBC_Collab_Theme_Options::textarea('arts-social-column2-content', 'Content'); ?></div>
@@ -415,8 +411,6 @@ Class UBC_FOA_Theme_Options {
                 </div>
                 <div id="sr3-posts" class="sr3-element"><label>Choose a category</label><br><?php UBC_Collab_Theme_Options::select_categories('arts-social-column3-post-category'); ?></div>
                 <div id="sr3-twitter" class="sr3-element"><?php UBC_Collab_Theme_Options::text('arts-social-column3-twitter-widget-id', 'Twitter Widget ID'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column3-twitter-user', 'Twitter User'); ?><br><?php UBC_Collab_Theme_Options::text('arts-social-column3-twitter-url', 'Twitter Page URL'); ?></div>
-                <div id="sr3-instagram" class="sr3-element"><?php UBC_Collab_Theme_Options::text('arts-social-column3-instagram', 'Instagram User'); ?></div>
-                <div id="sr3-facebook" class="sr3-element"><?php UBC_Collab_Theme_Options::text('arts-social-column3-facebook', 'Facebook Page URL'); ?></div>
                 <div id="sr3-flickr" class="sr3-element"><?php UBC_Collab_Theme_Options::text('arts-social-column3-flickr', 'Flickr User ID'); ?><br><span><a href="http://idgettr.com/" target="_blank">Find Flickr Id</a></span></div>
                 <div id="sr3-rss" class="sr3-element"><?php UBC_Collab_Theme_Options::text('arts-social-column3-rss', 'RSS URL'); ?></div>
                 <div id="sr3-text" class="sr3-element"><?php UBC_Collab_Theme_Options::textarea('arts-social-column3-content', 'Content'); ?></div>
