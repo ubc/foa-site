@@ -692,14 +692,6 @@ Class UBC_FOA_Theme_Options {
 	            'value' => 'sr1-twitter',
 	            'label' => __( 'Twitter', 'arts-clf' )
 	        ),
-	        'sr1-instagram' => array(
-	            'value' => 'sr1-instagram',
-	            'label' => __( 'Instagram', 'arts-clf' )
-	        ),
-	        'sr1-facebook' => array(
-	            'value' => 'sr1-facebook',
-	            'label' => __( 'Facebook', 'arts-clf' )
-	        ),
 	        'sr1-flickr' => array(
 	            'value' => 'sr1-flickr',
 	            'label' => __( 'Flickr', 'arts-clf' )
@@ -730,14 +722,6 @@ Class UBC_FOA_Theme_Options {
 	        'sr2-twitter' => array(
 	            'value' => 'sr2-twitter',
 	            'label' => __( 'Twitter', 'arts-clf' )
-	        ),
-	        'sr2-instagram' => array(
-	            'value' => 'sr2-instagram',
-	            'label' => __( 'Instagram', 'arts-clf' )
-	        ),
-	        'sr2-facebook' => array(
-	            'value' => 'sr2-facebook',
-	            'label' => __( 'Facebook', 'arts-clf' )
 	        ),
 	        'sr2-flickr' => array(
 	            'value' => 'sr2-flickr',
@@ -770,14 +754,6 @@ Class UBC_FOA_Theme_Options {
 	        'sr3-twitter' => array(
 	            'value' => 'sr3-twitter',
 	            'label' => __( 'Twitter', 'arts-clf' )
-	        ),
-	        'sr3-instagram' => array(
-	            'value' => 'sr3-instagram',
-	            'label' => __( 'Instagram', 'arts-clf' )
-	        ),
-	        'sr3-facebook' => array(
-	            'value' => 'sr3-facebook',
-	            'label' => __( 'Facebook', 'arts-clf' )
 	        ),
 	        'sr3-flickr' => array(
 	            'value' => 'sr3-flickr',
