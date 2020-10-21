@@ -1252,13 +1252,17 @@ Class UBC_FOA_Theme_Options {
          * @return string
          */
         function get_social_instagram($username, $limit = 10) {
-            $media_array = UBC_FOA_Theme_Options::scrape_instagram($username, $limit);
-            // Divide the array into two columns
-            $insta_items_col1 = array_slice($media_array, 0, $limit / 2);
-            $insta_items_col2 = array_slice($media_array, $limit / 2);
-            $html = '';
-            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col1);
-            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col2);
+	        $html = '';
+            try{
+	            $media_array = UBC_FOA_Theme_Options::scrape_instagram($username, $limit);
+	            // Divide the array into two columns
+	            $insta_items_col1 = array_slice($media_array, 0, $limit / 2);
+	            $insta_items_col2 = array_slice($media_array, $limit / 2);
+	            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col1);
+	            $html .= UBC_FOA_Theme_Options::instagram_items_to_html($insta_items_col2);
+            }catch(Exception $e){
+                $html .= 'Caught exception: ' . $e->getMessage();
+            }
             
             return $html;
         }
@@ -1297,71 +1301,45 @@ Class UBC_FOA_Theme_Options {
 	function scrape_instagram( $username, $slice = 9 ) {
 		$username = strtolower( $username );
 		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
-			$remote = wp_remote_get( 'http://instagram.com/'.trim( $username ) );
-			if ( is_wp_error( $remote ) )
-				return 'Unable to communicate with Instagram.';
-			if ( 200 != wp_remote_retrieve_response_code( $remote ) )
-				return 'Instagram did not return a 200.';
+			$remote = wp_remote_get( esc_url( 'https://instagram.com/' . trim( $username ) ) );
+			if ( is_wp_error( $remote ) ) {
+				throw new Exception( 'Unable to communicate with Instagram.' );
+			}
+			$response_code = wp_remote_retrieve_response_code( $remote );
+			if ( 200 !== $response_code ) {
+				throw new Exception( 'Instagram did not return a 200. Got response code:' . $response_code );
+			}
 			$shards = explode( 'window._sharedData = ', $remote['body'] );
 			$insta_json = explode( ';</script>', $shards[1] );
 			$insta_array = json_decode( $insta_json[0], TRUE );
-			if ( !$insta_array )
-				return 'Instagram has returned invalid data.';
-			// old style
-			if ( isset( $insta_array['entry_data']['UserProfile'][0]['userMedia'] ) ) {
-				$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
-				$type = 'old';
-			// new style
-			} else if ( isset( $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'] ) ) {
-				$images = $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'];
-				$type = 'new';
-			} else {
-				return 'Instagram has returned invalid data.';
+			if ( !$insta_array ) {
+				throw new Exception( 'Instagram has returned invalid data.' );
 			}
-			if ( !is_array( $images ) )
-				return 'Instagram has returned invalid data.';
+			if ( isset( $insta_array['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges'] ) ) {
+				$images = $insta_array['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges'];
+			} else {
+				throw new Exception( 'Instagram has returned invalid data.' );
+			}
+			if ( !is_array( $images ) ) {
+				throw new Exception( 'Instagram has returned invalid data.' );
+			}
 			$instagram = array();
-			switch ( $type ) {
-				case 'old':
-					foreach ( $images as $image ) {
-						if ( $image['user']['username'] == $username ) {
-							$image['link']						  = preg_replace( "/^http:/i", "", $image['link'] );
-							$image['images']['thumbnail']		   = preg_replace( "/^http:/i", "", $image['images']['thumbnail'] );
-							$image['images']['standard_resolution'] = preg_replace( "/^http:/i", "", $image['images']['standard_resolution'] );
-							$image['images']['low_resolution']	  = preg_replace( "/^http:/i", "", $image['images']['low_resolution'] );
-							$instagram[] = array(
-								$image['caption']['text'],
-								'link'		  	=> $image['link'],
-								'time'		  	=> $image['created_time'],
-								'comments'	  	=> $image['comments']['count'],
-								'likes'		 	=> $image['likes']['count'],
-								'thumbnail'	 	=> $image['images']['thumbnail'],
-								'large'		 	=> $image['images']['standard_resolution'],
-								'small'		 	=> $image['images']['low_resolution'],
-								'type'		  	=> $image['type']
-							);
-						}
-					}
-				break;
-				default:
-					foreach ( $images as $image ) {
-						$image['display_src'] = preg_replace( "/^http:/i", "", $image['display_src'] );
-						if ( $image['is_video']  == true ) {
-							$type = 'video';
-						} else {
-							$type = 'image';
-						}
-						$instagram[] = array(
-							'description'           => __( $image['caption'], 'wpiw' ),
-							'link'		  	=> '//instagram.com/p/' . $image['code'],
-							'time'		  	=> $image['date'],
-							'comments'	  	=> $image['comments']['count'],
-							'likes'		 	=> $image['likes']['count'],
-							'thumbnail'	 	=> $image['display_src'],
-							'type'		  	=> $type
-						);
-					} 
-				break;
+			foreach ( $images as $image ) {
+				$image['display_src'] = preg_replace( '/^http:/i', '', $image['node']['display_url'] );
+				if ( true === $image['is_video'] ) {
+					$type = 'video';
+				} else {
+					$type = 'image';
+				}
+				$instagram[] = array(
+					'description'   => __( $image['node']['edge_media_to_caption']['edges'][0]['node']['text'], 'wpiw' ),
+					'link'		  	=> '//instagram.com/p/' . $image['node']['shortcode'],
+					'time'		  	=> $image['node']['taken_at_timestamp'],
+					'comments'	  	=> $image['comments']['count'],
+					'likes'		 	=> $image['node']['edge_liked_by']['count'],
+					'thumbnail'	 	=> $image['node']['thumbnail_resources'][0]['src'],
+					'type'		  	=> $type
+				);
 			}
 			// do not set an empty transient - should help catch private or empty accounts
 			if ( ! empty( $instagram ) ) {
@@ -1373,9 +1351,9 @@ Class UBC_FOA_Theme_Options {
 			$instagram = unserialize( base64_decode( $instagram ) );
 			return array_slice( $instagram, 0, $slice );
 		} else {
-			return 'Instagram did not return any images.';
+			throw new Exception( 'Instagram did not return any images.' );
 		}
-	}   
+	}
         
         /**
          * Calls the add_event_carousel_content if this feature is set to be enable
