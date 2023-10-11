@@ -66,7 +66,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function register_scripts() {
+    public static function register_scripts() {
     	self::$add_script = true;
 		// register the spotlight functions
         if( !is_admin() ):
@@ -82,7 +82,7 @@ Class UBC_FOA_Theme_Options {
 	 * @static
 	 * @return void
 	 */
-	static function print_script() {
+	public static function print_script() {
 		if ( ! self::$add_script )
 			return;
 
@@ -95,7 +95,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-     function arts_ui(){
+    public static function arts_ui(){
         wp_enqueue_style('arts-theme-option-style');
         wp_enqueue_script('arts-theme-option-script', array('jquery'));
      }
@@ -106,7 +106,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function admin(){
+    public static function admin(){
 
         //Add Arts Options tab in the theme options
         add_settings_section(
@@ -191,7 +191,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function arts_colour_options(){ ?>
+    public static function arts_colour_options(){ ?>
 
 
 		<div class="explanation"><a href="#" class="explanation-help">Info</a>
@@ -222,7 +222,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function arts_logo_options(){ ?>
+    public static function arts_logo_options(){ ?>
 
 
 		<div class="explanation"><a href="#" class="explanation-help">Info</a>
@@ -242,7 +242,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function arts_apply_now_options(){ ?>
+    public static function arts_apply_now_options(){ ?>
             <div class="explanation"><a href="#" class="explanation-help">Info</a>
 
                     <div> An optional button to be appended to the main navigation menu that will link to the specified application page</div>
@@ -264,7 +264,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function arts_slider_options(){ ?>
+    public static function arts_slider_options(){ ?>
             <div class="explanation"><a href="#" class="explanation-help">Info</a>
 
                     <div> This option allows admin to insert the unit logo to the slider, as well as deciding the caption location on the slider</div>
@@ -292,7 +292,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-    function arts_news_ticker_theme_options(){ ?>
+    public static function arts_news_ticker_theme_options(){ ?>
             <div class="explanation"><a href="#" class="explanation-help">Info</a>
 
                     <div> This option allows admin to enable or disable a ticker feature on the website that displays the post title as a sliding feature.</div>
@@ -317,7 +317,7 @@ Class UBC_FOA_Theme_Options {
     <?php
     }
 
-    function arts_event_carousel_options(){ ?>
+    public static function arts_event_carousel_options(){ ?>
             <div class="explanation"><a href="#" class="explanation-help">Info</a>
 
                     <div> This option allows admin to feature posts of an event categories to be available on the site homepage</div>
@@ -334,7 +334,7 @@ Class UBC_FOA_Theme_Options {
     <?php
     }
 
-    function arts_social_row_options(){?>
+    public static function arts_social_row_options(){?>
             <div class="explanation"><a href="#" class="explanation-help">Info</a>
 
                     <div> This allows admin to define 3 social media sources to be fed automatically on the website</div>
@@ -427,7 +427,7 @@ Class UBC_FOA_Theme_Options {
      *
      * @since ubc-clf 1.0
      */
-    function default_values( $options ) {
+    public static function default_values( $options ) {
             if (!is_array($options)) {
                     $options = array();
             }
@@ -509,7 +509,7 @@ Class UBC_FOA_Theme_Options {
 	 * @return array Sanitized theme options ready to be stored in the database.
 	 *
 	 */
-	function validate( $output, $input ) {
+	public static function validate( $output, $input ) {
 
 		// Grab default values as base
 		$starter = UBC_FOA_Theme_Options::default_values( array() );
@@ -625,7 +625,7 @@ Class UBC_FOA_Theme_Options {
          /**
 	 * Returns and array of news-ticker options
 	 */
-	function arts_news_ticker_options() {
+	public static function arts_news_ticker_options() {
 		$slider_direction = array(
 	        'disabled' => array(
 	            'value' => 'disabled',
@@ -645,7 +645,7 @@ Class UBC_FOA_Theme_Options {
     	/**
 	 * Returns and array of options for slider logo position
 	 */
-	function arts_slider_logo_position() {
+	public static function arts_slider_logo_position() {
 		$slider_direction = array(
 	        '0' => array(
 	            'value' => '0',
@@ -662,7 +662,7 @@ Class UBC_FOA_Theme_Options {
     	/**
 	 * Returns and array of reverse colours
 	 */
-	function arts_reverse_colour() {
+	public static function arts_reverse_colour() {
 		$reverse_colour = array(
 	        'white' => array(
 	            'value' => 'white',
@@ -679,7 +679,7 @@ Class UBC_FOA_Theme_Options {
      	/**
 	 * Returns and array of Social Columns for column 1
 	 */
-	function arts_social1_options() {
+	public static function arts_social1_options() {
 		$social_columns = array(
 	        '0' => array(
 	            'value' => '0',
@@ -710,7 +710,7 @@ Class UBC_FOA_Theme_Options {
      	/**
 	 * Returns and array of Social Columns for column 2
 	 */
-	function arts_social2_options() {
+	public static function arts_social2_options() {
 		$social_columns = array(
 	        '0' => array(
 	            'value' => '0',
@@ -742,7 +742,7 @@ Class UBC_FOA_Theme_Options {
         /**
 	 * Returns and array of Social Columns for column 2
 	 */
-	function arts_social3_options() {
+	public static function arts_social3_options() {
 		$social_columns = array(
 	        '0' => array(
 	            'value' => '0',
@@ -776,7 +776,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return array
      */
-    static function number_of_social_items(){
+    public static function number_of_social_items(){
 
         $number_of_social_items = array();
 
@@ -796,7 +796,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return menu items
      */
-      function add_arts_logo_to_menu ( $items, $args ) {
+    public static function add_arts_logo_to_menu ( $items, $args ) {
             if ($args->theme_location == 'primary') {
                 if(UBC_Collab_Theme_Options::get('arts-enable-logo')){
                     $items = '<li class="menu-item-foa"><a id="artslogo" href="'.self::$faculty_main_homepage.'" title="Arts" target="_blank"><img src="'.UBC_Collab_Theme_Options::get('arts-logo-url').'"/>Faculty of Art</a></li>'.$items;
@@ -811,7 +811,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return menu items
      */
-        function add_apply_now_to_menu( $items, $args ){
+    public static function add_apply_now_to_menu( $items, $args ){
             if ($args->theme_location == 'primary') {
                 if(UBC_Collab_Theme_Options::get('arts-enable-apply-now')){
                     $items .= '<a id="applybtn" href="'.UBC_Collab_Theme_Options::get('arts-apply-now-url').'" title="Apply Now">'.UBC_Collab_Theme_Options::get('arts-apply-now-text').'</a>';
@@ -824,22 +824,22 @@ Class UBC_FOA_Theme_Options {
          * add_news_ticker will add the html code to the homepage if this feature is enabled
          *
          */
-        function add_news_ticker(){
+    public static function add_news_ticker(){
 
-            if(UBC_Collab_Theme_Options::get('arts-enable-news-ticker')!= 'disabled'){
-                if(UBC_Collab_Theme_Options::get('arts-enable-news-ticker')== 'after_content'){
-                    add_filter( self::$prefix.'_after_content', array(__CLASS__, 'add_news_ticker_content' ));
-                } else{
-                    add_filter( self::$prefix.'_before_content', array(__CLASS__, 'add_news_ticker_content' ));
-                }
+        if(UBC_Collab_Theme_Options::get('arts-enable-news-ticker')!= 'disabled'){
+            if(UBC_Collab_Theme_Options::get('arts-enable-news-ticker')== 'after_content'){
+                add_filter( self::$prefix.'_after_content', array(__CLASS__, 'add_news_ticker_content' ));
+            } else{
+                add_filter( self::$prefix.'_before_content', array(__CLASS__, 'add_news_ticker_content' ));
             }
         }
+    }
 
         /**
          * Generates content for the news ticker based on the selected category
          *
          */
-        function add_news_ticker_content(){
+        public static function add_news_ticker_content(){
             $query_attr = array();
             $category = UBC_Collab_Theme_Options::get('arts-news-ticker-category');
 
@@ -879,7 +879,7 @@ Class UBC_FOA_Theme_Options {
          * add_social_row calls the appropriate function to generate social media row html if this feature is enabled
          *
          */
-        function add_social_row(){
+        public static function add_social_row(){
             if(UBC_Collab_Theme_Options::get('arts-enable-social-row')){
                 add_filter( self::$prefix.'_after_content', array(__CLASS__, 'add_social_row_content' ));
             }
@@ -888,7 +888,7 @@ Class UBC_FOA_Theme_Options {
         /**
          * Generates the html content and calls the appropriate function based on selection
          */
-        function add_social_row_content(){
+        public static function add_social_row_content(){
             $html = '<div class="row-fluid entry-content social-row">
                         <div class="span4 sr-col1">
                              <h3>'.UBC_Collab_Theme_Options::get('arts-social-column1-title').'</h3>
@@ -916,7 +916,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $content_type
          * @return type
          */
-        function get_social_content($content_type){
+        public static function get_social_content($content_type){
             $content = '';
 
             switch ($content_type) {
@@ -1017,7 +1017,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $number_of_items
          * @return string
          */
-        function get_social_posts($category, $number_of_items=1){
+        public static function get_social_posts($category, $number_of_items=1){
 
             $query_attr = array();
 
@@ -1058,7 +1058,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $twitter_page_url
          * @return string html
          */
-        function get_social_twitter($twitter_widget_id, $twitter_user, $twitter_page_url){
+        public static function get_social_twitter($twitter_widget_id, $twitter_user, $twitter_page_url){
             $html = '<a class="twitter-timeline" href="'.$twitter_page_url.'" data-widget-id="'.$twitter_widget_id.'">Tweets by '.$twitter_user.'</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
             return $html;
@@ -1070,7 +1070,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $facebook_page_url
          * @return string
          */
-        function get_social_facebook($facebook_page_url){
+        public static function get_social_facebook($facebook_page_url){
             $fb_js_sdk = '<div id="fb-root"></div>
                             <script>(function(d, s, id) {
                               var js, fjs = d.getElementsByTagName(s)[0];
@@ -1091,7 +1091,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $number_of_items
          * @return string
          */
-        function get_social_flickr($flickr_user_id, $number_of_items=1){
+        public static function get_social_flickr($flickr_user_id, $number_of_items=1){
             // Get a SimplePie feed object from the specified feed source.
             $rss_url = 'https://api.flickr.com/services/feeds/photos_public.gne/?id='.$flickr_user_id;
             $rss = fetch_feed( $rss_url );
@@ -1131,7 +1131,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $flickr_items
          * @return string
          */
-        function flickr_items_to_html($flickr_items){
+        public static function flickr_items_to_html($flickr_items){
             $html = '<ul class="flickr-container">';
             foreach ( $flickr_items as $item ){
                  $flickr_image_src = UBC_FOA_Theme_Options::get_flickr_img_src($item->get_description());
@@ -1153,7 +1153,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $item_html
          * @return type
          */
-        function get_flickr_img_src($item_html){
+        public static function get_flickr_img_src($item_html){
             $flickr_html = explode('<p>', $item_html);
             $flickr_html = rtrim($flickr_html[2], '</p>');
             $flickr_html = explode('<img', $flickr_html);
@@ -1170,7 +1170,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $rss_url
          * @return type html
          */
-        function get_social_rss($rss_url, $number_of_items=1){
+        public static function get_social_rss($rss_url, $number_of_items=1){
             // Get a SimplePie feed object from the specified feed source.
             $rss = fetch_feed( $rss_url );
 
@@ -1212,7 +1212,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $data
          * @return type html
          */
-        function get_social_text($data){
+        public static function get_social_text($data){
             return $data;
         }
 
@@ -1223,7 +1223,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $limit
          * @return string
          */
-        function get_social_instagram($username, $limit = 10) {
+        public static function get_social_instagram($username, $limit = 10) {
 	        $html = '';
             try{
 	            $media_array = UBC_FOA_Theme_Options::scrape_instagram($username, $limit);
@@ -1244,7 +1244,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $instagram_items
          * @return string
          */
-        function instagram_items_to_html($instagram_items){
+        public static function instagram_items_to_html($instagram_items){
             $size = 'thumbnail';
             $target = '_blank';
 
@@ -1270,7 +1270,7 @@ Class UBC_FOA_Theme_Options {
          * @param type $slice
          * @return \WP_Error
          */
-	function scrape_instagram( $username, $slice = 9 ) {
+	public static function scrape_instagram( $username, $slice = 9 ) {
 		$username = strtolower( $username );
 		if ( false === ( $instagram = get_transient( 'instagram-media-news-'.sanitize_title_with_dashes( $username ) ) ) ) {
 			$remote = wp_remote_get( esc_url( 'https://instagram.com/' . trim( $username ) ) );
@@ -1330,7 +1330,7 @@ Class UBC_FOA_Theme_Options {
         /**
          * Calls the add_event_carousel_content if this feature is set to be enable
          */
-        function add_event_carousel(){
+        public static function add_event_carousel(){
                 if(UBC_Collab_Theme_Options::get('arts-enable-event-carousel')){
                     add_filter( self::$prefix.'_after_content', array(__CLASS__, 'add_event_carousel_content' ));
                 }
@@ -1340,7 +1340,7 @@ Class UBC_FOA_Theme_Options {
          * Generates event carousels based on the selected category
          *
          */
-        function add_event_carousel_content(){
+        public static function add_event_carousel_content(){
 
             $query_attr = array();
             $category = UBC_Collab_Theme_Options::get('arts-event-carousel-category');
@@ -1386,7 +1386,7 @@ Class UBC_FOA_Theme_Options {
         /**
          * Hardcodes the arts layout option
          */
-        function arts_frontpage_layout(){
+        public static function arts_frontpage_layout(){
             UBC_Collab_Theme_Options::update('frontpage-layout', 'layout-option4');
             // apply the right width divs to the columns
             //remove_filter( 'ubc_collab_sidebar_class', array(__CLASS__, 'add_sidebar_class' ), 10, 2 );
@@ -1401,7 +1401,7 @@ Class UBC_FOA_Theme_Options {
 	 * @param mixed $classes
 	 * @return string
 	 */
-	function add_sidebar_class( $classes, $id  ) {
+	public static function add_sidebar_class( $classes, $id  ) {
 		if ( is_active_sidebar( 'frontpage' ) && is_front_page()){
 			if (in_array($id, array("utility-before-content", "utility-after-content", "utility-after-singular") ) ){
 				return $classes;
@@ -1416,13 +1416,13 @@ Class UBC_FOA_Theme_Options {
         /**
          * Hardcodes the option to remove the slider margin option
          */
-        function remove_slider_margin(){
+        public static function remove_slider_margin(){
             UBC_Collab_Theme_Options::update('slider-remove-margin', 1);
         }
         /**
          * Hardcodes the selection of arts slider
          */
-        function select_transparent_slider(){
+        public static function select_transparent_slider(){
             UBC_Collab_Theme_Options::update('slider-option', 'basic-sliding');
         }
 
@@ -1433,7 +1433,7 @@ Class UBC_FOA_Theme_Options {
      * @access public
      * @return void
      */
-        function wp_head(){ ?>
+        public static function wp_head(){ ?>
         <link rel="stylesheet" href="//cdn.arts.ubc.ca/foa-cdn/css/slick.css" >
         <link rel="stylesheet" href="//cdn.arts.ubc.ca/foa-cdn/css/foa.css">
         <style type="text/css" media="screen">
@@ -1520,7 +1520,7 @@ Class UBC_FOA_Theme_Options {
     <?php
     }
 
-    function wp_footer(){
+    public static function wp_footer(){
         if(is_front_page()){
             ?>
             <script>
