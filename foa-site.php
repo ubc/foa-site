@@ -131,14 +131,6 @@ Class UBC_FOA_Theme_Options {
                 'theme_options', // Menu slug, used to uniquely identify the page; see ubc_collab_theme_options_add_page()
                 'foa-options' // Settings section. Same as the first argument in the add_settings_section() above
         );
-         //Add Why-Unit options
-        add_settings_field(
-                'arts-why-unit', // Unique identifier for the field for this section
-                'Why Unit?', // Setting field label
-                array(__CLASS__,'arts_why_unit_options'), // Function that renders the settings field
-                'theme_options', // Menu slug, used to uniquely identify the page; see ubc_collab_theme_options_add_page()
-                'arts-options' // Settings section. Same as the first argument in the add_settings_section() above
-        );
 
         //Add Why-Unit options
         add_settings_field(
