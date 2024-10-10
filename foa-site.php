@@ -19,6 +19,11 @@ Class UBC_FOA_Theme_Options {
      * @return void
      */
     public static function init() {
+
+        if ( ! class_exists( 'UBC_Collab_Theme_Options' ) ) {
+            return;
+        }
+        
         self::$prefix = 'wp-hybrid-clf'; // function hybrid_get_prefix() is not available within the plugin
 
         self::$faculty_main_homepage = 'http://www.arts.ubc.ca';
